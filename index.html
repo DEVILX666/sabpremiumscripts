@@ -248,6 +248,61 @@
             position: relative;
             max-height: 200px;
             overflow-y: auto;
+            transition: all 0.5s ease;
+        }
+        
+        .code-box.blurred {
+            filter: blur(12px);
+            user-select: none;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .code-box.blurred:hover {
+            filter: blur(8px);
+        }
+        
+        .code-box.blurred::after {
+            content: 'CLICK TO REVEAL SCRIPT';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--script-green);
+            padding: 10px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            border: 2px solid var(--script-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            z-index: 2;
+            text-align: center;
+            width: 80%;
+        }
+        
+        .code-box.blurred::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(0, 255, 136, 0.1) 50%,
+                transparent 70%
+            );
+            background-size: 200% 200%;
+            animation: shimmer 3s infinite linear;
+            z-index: 1;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% -200%; }
+            100% { background-position: 200% 200%; }
         }
         
         .copy-btn {
@@ -272,6 +327,12 @@
         .copy-btn.copied {
             background: var(--script-green);
             color: black;
+        }
+        
+        .copy-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
         
         .executor-section {
@@ -323,6 +384,16 @@
             flex-shrink: 0;
             font-weight: bold;
         }
+        
+        .protection-notice {
+            background: rgba(255, 0, 51, 0.1);
+            border: 1px solid var(--delta-red);
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #ff9999;
+        }
     </style>
 </head>
 <body>
@@ -331,13 +402,13 @@
     
     <div class="container">
         <h1>CONGRATULATIONS!</h1>
-        <div class="subtitle">YOU UNLOCKED THE SCRIPTS! NOW DOWNLOAD MY PREMIUM EXECUTOR THAT I USE IN MY VIDEOS - NEVER GOT ME BANNED!</div>
+        <div class="subtitle">YOU UNLOCKED THE SCRIPTS! NOW DOWNLOAD MY PREMIUM EXECUTOR THAT I USE IN MY VIDEOS NEVER GOT ME BANNED!</div>
         
         <div class="executor-section">
             <div class="executor-title">DOWNLOAD PREMIUM EXECUTOR</div>
             
             <div class="button-container">
-                <a href="https://krnl.cat/" class="btn btn-android">
+                <a href="https://delta.bz/" class="btn btn-android">
                     PREMIUM CUSTOM EXECUTOR
                     <div class="platform-tag">ANDROID/IOS KEYLESS</div>
                 </a>
@@ -352,75 +423,118 @@
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <div>Copy any script below by clicking the "Copy To Clipboard" button</div>
+                <div>Click on any blurred script box below to reveal the code</div>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
+                <div>Copy the script by clicking the "Copy To Clipboard" button</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
                 <div>Paste the script into your executor and enjoy!</div>
             </div>
         </div>
         
+        <div class="protection-notice">
+            ⚠️ SCRIPTS PROTECTED - CLICK TO REVEAL ⚠️
+        </div>
+        
         <div class="scripts-container">
             <div class="script-item">
-    <div class="script-title">1. Steal a Brainrot BRAINROTS SPAWNER SCRIPT</div>
-    <div class="code-box" id="script1">loadstring(game:HttpGet("https://pastefy.app/DdqmAYYX/raw"))()
-</div>
-    <button class="copy-btn" onclick="copyToClipboard('script1', this)">Copy To Clipboard</button>
-</div>
+                <div class="script-title">1. Steal a Brainrot BRAINROTS SPAWNER SCRIPT</div>
+                <div class="code-box blurred" id="script1" onclick="revealScript(this)">loadstring(game:HttpGet("https://pastefy.app/DdqmAYYX/raw"))()
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard('script1', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">2. Steal a Brainrot SAVE POSITION + TP + ESP BEST BRAINROT SCRIPT</div>
-    <div class="code-box" id="script2">loadstring(game:HttpGet("https://raw.githubusercontent.com/Crypoth/StealABrainRotSpawner/refs/heads/main/XwareSpawner"))()
-</div>
-    <button class="copy-btn" onclick="copyToClipboard('script2', this)">Copy To Clipboard</button>
-</div>
+            <div class="script-item">
+                <div class="script-title">2. Steal a Brainrot SAVE POSITION + TP + ESP BEST BRAINROT SCRIPT</div>
+                <div class="code-box blurred" id="script2" onclick="revealScript(this)">loadstring(game:HttpGet("https://raw.githubusercontent.com/Crypoth/StealABrainRotSpawner/refs/heads/main/XwareSpawner"))()
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard('script2', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">3. Steal a Brainrot ZZZZ DESYNC SCRIPT</div>
-    <div class="code-box" id="script3">loadstring(game:HttpGet("https://raw.githubusercontent.com/zzzhubv2/desyncv2/refs/heads/main/loader"))()</div>
-    <button class="copy-btn" onclick="copyToClipboard('script3', this)">Copy To Clipboard</button>
-</div>
+            <div class="script-item">
+                <div class="script-title">3. Steal a Brainrot ZZZZ DESYNC SCRIPT</div>
+                <div class="code-box blurred" id="script3" onclick="revealScript(this)">loadstring(game:HttpGet("https://raw.githubusercontent.com/zzzhubv2/desyncv2/refs/heads/main/loader"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard('script3', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">4. Steal a Brainrot KICK SCRIPT OP</div>
-    <div class="code-box" id="script4">loadstring(game:HttpGet("https://pastebin.com/raw/UD70yxvb"))()</div>
-    <button class="copy-btn" onclick="copyToClipboard('script4', this)">Copy To Clipboard</button>
-</div>
+            <div class="script-item">
+                <div class="script-title">4. Steal a Brainrot KICK SCRIPT OP</div>
+                <div class="code-box blurred" id="script4" onclick="revealScript(this)">loadstring(game:HttpGet("https://pastebin.com/raw/UD70yxvb"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard('script4', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">5. Steal a Brainrot KDML (INSTANT STEAL) SCRIPT</div>
-    <div class="code-box" id="script5">loadstring(game:HttpGet("https://raw.githubusercontent.com/kdmlv2/Instantsteal/refs/heads/main/loader"))()</div>
-    <button class="copy-btn" onclick="copyToClipboard('script5', this)">Copy To Clipboard</button>
-</div>
+            <div class="script-item">
+                <div class="script-title">5. Steal a Brainrot KDML (INSTANT STEAL) SCRIPT</div>
+                <div class="code-box blurred" id="script5" onclick="revealScript(this)">loadstring(game:HttpGet("https://raw.githubusercontent.com/kdmlv2/Instantsteal/refs/heads/main/loader"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard('script5', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">6. Steal a Brainrot SELF-FISHING</div>
-    <div class="code-box" id="script6">loadstring(game:HttpGet("https://pastebin.com/raw/UD70yxvb"))()</div>
-    <button class="copy-btn" onclick="copyToClipboard('script6', this)">Copy To Clipboard</button>
-</div>
+            <div class="script-item">
+                <div class="script-title">6. Steal a Brainrot SELF-FISHING</div>
+                <div class="code-box blurred" id="script6" onclick="revealScript(this)">loadstring(game:HttpGet("https://pastebin.com/raw/UD70yxvb"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard('script6', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">7. Steal a Brainrot COOLDOWN REMOVER SCRIPT</div>
-    <div class="code-box" id="script7">loadstring(game:HttpGet("https://raw.githubusercontent.com/khanghay063-glitch/Crash/refs/heads/main/keyui.lua"))()</div>
-    <button class="copy-btn" onclick="copyToClipboard('script7', this)">Copy To Clipboard</button>
-</div>
+            <div class="script-item">
+                <div class="script-title">7. Steal a Brainrot COOLDOWN REMOVER SCRIPT</div>
+                <div class="code-box blurred" id="script7" onclick="revealScript(this)">loadstring(game:HttpGet("https://raw.githubusercontent.com/khanghay063-glitch/Crash/refs/heads/main/keyui.lua"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard('script7', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">8. Steal a Brainrot PAINTBALL LAGGER</div>
-    <div class="code-box" id="script8">loadstring(game:HttpGet("https://pastebin.com/raw/UD70yxvb"))()</div>
-    <button class="copy-btn" onclick="copyToClipboard('script8', this)">Copy To Clipboard</button>
-</div>
+            <div class="script-item">
+                <div class="script-title">8. Steal a Brainrot PAINTBALL LAGGER</div>
+                <div class="code-box blurred" id="script8" onclick="revealScript(this)">loadstring(game:HttpGet("https://pastebin.com/raw/UD70yxvb"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard('script8', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
 
-<div class="script-item">
-    <div class="script-title">9. Steal a Brainrot CRASHER SCRIPT</div>
-    <div class="code-box" id="script8">loadstring(game:HttpGet("https://raw.githubusercontent.com/DeltaScriptsV2/SabScriptsV3/refs/heads/main/ZZZZHUB"))()
-</div>
-    <button class="copy-btn" onclick="copyToClipboard('script8', this)">Copy To Clipboard</button>
-</div>
-
+            <div class="script-item">
+                <div class="script-title">9. Steal a Brainrot CRASHER SCRIPT</div>
+                <div class="code-box blurred" id="script9" onclick="revealScript(this)">loadstring(game:HttpGet("https://raw.githubusercontent.com/DeltaScriptsV2/SabScriptsV3/refs/heads/main/ZZZZHUB"))()
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard('script9', this)" disabled>COPY TO CLIPBOARD (REVEAL FIRST)</button>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Track revealed scripts
+        const revealedScripts = new Set();
+        
+        function revealScript(element) {
+            // Remove blur effect
+            element.classList.remove('blurred');
+            
+            // Enable the corresponding copy button
+            const scriptId = element.id;
+            const copyBtn = element.nextElementSibling;
+            
+            if (copyBtn && copyBtn.classList.contains('copy-btn')) {
+                copyBtn.disabled = false;
+                copyBtn.innerText = "COPY TO CLIPBOARD";
+            }
+            
+            // Add to revealed set
+            revealedScripts.add(scriptId);
+            
+            // Remove click handler to prevent multiple reveals
+            element.onclick = null;
+            
+            // Add subtle animation
+            element.style.animation = 'none';
+            element.offsetHeight; // Trigger reflow
+            element.style.animation = 'shimmer 2s ease-out';
+        }
+        
         function copyToClipboard(elementId, button) {
+            // Check if script is revealed
+            if (!revealedScripts.has(elementId)) {
+                alert('Please click on the blurred script box to reveal the code first!');
+                return;
+            }
+            
             const codeElement = document.getElementById(elementId);
             const textToCopy = codeElement.innerText;
             
@@ -430,15 +544,46 @@
                 button.innerText = "COPIED!";
                 button.classList.add("copied");
                 
+                // Add a cool effect to the code box
+                codeElement.style.boxShadow = '0 0 20px var(--script-green)';
+                
                 setTimeout(() => {
                     button.innerText = originalText;
                     button.classList.remove("copied");
+                    codeElement.style.boxShadow = '';
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert('Failed to copy text to clipboard');
             });
         }
+        
+        // Optional: Add a button to reveal all scripts at once
+        function addRevealAllButton() {
+            const scriptsContainer = document.querySelector('.scripts-container');
+            const revealAllBtn = document.createElement('button');
+            revealAllBtn.className = 'copy-btn';
+            revealAllBtn.style.marginTop = '20px';
+            revealAllBtn.style.background = 'var(--script-green)';
+            revealAllBtn.style.color = 'black';
+            revealAllBtn.innerText = '⚠️ REVEAL ALL SCRIPTS ⚠️';
+            revealAllBtn.onclick = function() {
+                if (confirm('Are you sure you want to reveal all scripts at once?')) {
+                    const blurredBoxes = document.querySelectorAll('.code-box.blurred');
+                    blurredBoxes.forEach(box => {
+                        revealScript(box);
+                    });
+                    this.style.display = 'none';
+                }
+            };
+            
+            scriptsContainer.parentNode.insertBefore(revealAllBtn, scriptsContainer.nextSibling);
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            addRevealAllButton();
+        });
     </script>
 </body>
 </html>
